@@ -1,25 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portafolio Musical</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio Musical Pablo Villalba">
+  <title>Pablo's portfolio</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    
+    body {
+      font-family: 'Lora', serif;
+      background-color: #e9ffe9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      display: flex;
+      align-items: flex-start;
+      padding: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+    .bio {
+      margin-left: 20px;
+    }
+    .bio h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .bio p {
+      margin: 5px 0;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      width: 180px;
+      border: none;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      font-family: 'Lora', serif;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #605060;
+    }
+    button.active {
+      background-color: #448043; /* Color de fondo del botón activo */
+    }
+    .content {
+      display: none;
+      margin-top: 20px;
+    }
+    iframe, video {
+      width: 100%;
+      height: 400px;
+    }
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      width: 100%;
+      text-align: center;
+    }
+    footer a {
+      color: #ffffff; /* Color para enlaces */
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <link rel="icon" href="./img/pv.ico">
 </head>
 <body>
-    <h1>Hola Mundo, he cambiado algo</h1>
-    
-    <h2>Canción 1</h2>
-    <audio controls>
-        <source src="./music/booboo_1-1.mp3" type="audio/mpeg">
-        Tu navegador no soporta el reproductor de audio.
-    </audio>
-    
-    <h2>Canción 2</h2>
-    <audio controls>
-        <source src="./music/nebulion_boss.mp3" type="audio/mpeg">
-        Tu navegador no soporta el reproductor de audio.
-    </audio>
-    
-    <!-- Añadir más canciones aquí -->
+
+  <header>
+    <img src="./img/paolink_g_verde.jpg" alt="Foto de perfil">
+    <div class="bio">
+      <h1>Pablo Villalba</h1>
+      <p>Compositor vocacional, hago música para <b>videojuegos</b>, <b>cortometrajes</b> y <b>proyectos multimedia</b>, con variedad de estilos.<br />
+	  <b>✓</b> integración de audio en videojuegos a través de middleware <b>✓</b> herramientas colaborativas <b>✓</b> repositorios de código<br />
+	  Si tienes en mente un videojuego, cortometraje, podcast o cualquier proyecto multimedia, cuenta conmigo :-)
+      </p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="button-group">
+      <button onclick="loadContent('reel', this)">Video game</br>music reel</button>
+      <button onclick="loadContent('musica-videojuegos', this)">Playlist música para videojuegos</button>
+	  <button onclick="loadContent('musica-cortometrajes', this)">Playlist música para cortometrajes</button>
+      <!-- button onclick="loadContent('musica-solista', this)">MVSICA GRATIA MVSICAE</button -->
+    </div>
+
+    <div id="reel" class="content"></div>
+    <div id="musica-solista" class="content"></div>
+    <div id="musica-cortometrajes" class="content"></div>
+    <div id="musica-videojuegos" class="content"></div>
+  </div>
+
+  <footer>
+    <p>Contáctame:</p>
+    <a href="https://x.com/u_PabloVillalba" target="_blank">X: @u_PabloVillalba</a>
+	Discord: paolink
+  </footer>
+
+  <script>
+    let activeButton = null;
+    let activeVideo = null;
+
+    function loadContent(id, button) {
+      // Restablecer el color de fondo del último botón pulsado
+      if (activeButton) {
+        activeButton.classList.remove('active');
+      }
+
+      // Aplicar el color de fondo al botón actual
+      button.classList.add('active');
+      activeButton = button;
+
+      // Pausar el video si está reproduciéndose
+      if (activeVideo && !activeVideo.paused) {
+        activeVideo.pause();
+      }
+
+      // Cerrar todos los contenidos visibles
+      document.querySelectorAll('.content').forEach(content => {
+        content.style.display = 'none';
+      });
+
+      // Mostrar el contenido correspondiente
+      const content = document.getElementById(id);
+      if (content.innerHTML === "") {
+        if (id === 'reel') {
+          content.innerHTML = '<video controls autoplay><source src="./video/pv_reel.mp4" type="video/mp4">Tu navegador no soporta el video.</video>';
+          activeVideo = content.querySelector('video');
+        } else if (id === 'musica-solista') {
+          content.innerHTML = '<iframe src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/tu-lista-solista" frameborder="0" allow="autoplay"></iframe>';
+        } else if (id === 'musica-cortometrajes') {
+          content.innerHTML = '<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1876469372&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/paolink" title="PaoLink" target="_blank" style="color: #cccccc; text-decoration: none;">PaoLink</a> · <a href="https://soundcloud.com/paolink/sets/pablos-short-films-soundtracks" title="Pablo&#x27;s short films soundtracks" target="_blank" style="color: #cccccc; text-decoration: none;">Pablo&#x27;s short films soundtracks</a></div>';
+        } else if (id === 'musica-videojuegos') {
+          content.innerHTML = '<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1877353838&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/paolink" title="PaoLink" target="_blank" style="color: #cccccc; text-decoration: none;">PaoLink</a> · <a href="https://soundcloud.com/paolink/sets/pablos-video-games-soundtracks" title="Pablo&#x27;s video games soundtracks" target="_blank" style="color: #cccccc; text-decoration: none;">Pablo&#x27;s video games soundtracks</a></div>';
+        }
+      }
+
+      // Mostrar el contenido
+      content.style.display = "block";
+    }
+  </script>
+
 </body>
 </html>
