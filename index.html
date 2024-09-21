@@ -8,6 +8,9 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Lora', serif;
       background-color: #e9ffe9;
@@ -22,6 +25,7 @@
       background-repeat: no-repeat;
       background-position: center center;
       background-attachment: fixed;
+      overflow-x: hidden;
     }
     header {
       display: flex;
@@ -41,12 +45,14 @@
     .bio-container {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     }
     img {
       border-radius: 50%;
       width: 150px;
       height: 150px;
-      margin-right: 20px;
+      margin-right: 10px;
+      max-width: 100%;
     }
     .bio h1 {
       margin: 0;
@@ -54,7 +60,7 @@
       font-weight: 700;
     }
     .bio p {
-      margin: 5px 0;
+      margin: 0;
       font-size: 16px;
       line-height: 1.5;
     }
@@ -62,22 +68,25 @@
       width: 100%;
       max-width: 800px;
       text-align: center;
-      margin-top: 50px;
+      margin-top: 5px;
+      padding: 0 15px;
     }
     .button-group {
       display: flex;
       justify-content: space-evenly;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
     button {
-      padding: 10px 20px;
-      width: 180px;
+      padding: 10px 5px;
+      width: 130px;
       border: outset;
       background-color: #333;
       color: white;
       cursor: pointer;
       font-family: 'Lora', serif;
       font-size: 14px;
+      max-width: 100%;
     }
     button:hover {
       background-color: #605060;
@@ -87,19 +96,20 @@
     }
     .content {
       display: none;
-      margin-top: 20px;
+      margin-top: 10px;
     }
     iframe, video {
       width: 100%;
       height: 400px;
     }
     footer {
-      margin-top: 50px;
+      margin-top: 10px;
       padding: 20px;
       background-color: #333;
       color: white;
       width: 100%;
       text-align: center;
+      padding: 20px 15px;
     }
     footer a {
       color: #ffffff;
@@ -136,9 +146,9 @@
 
   <div class="container">
     <div class="button-group">
-      <button id="reel-btn" onclick="loadContent('reel', this)">Music Reel</br>Videojuegos</button>
-      <button id="videojuegos-btn" onclick="loadContent('musica-videojuegos', this)">Playlist música para videojuegos</button>
-      <button id="cortometrajes-btn" onclick="loadContent('musica-cortometrajes', this)">Playlist música para cortometrajes</button>
+      <button id="reel-btn" onclick="loadContent('reel', this)">Reel música</br>videojuegos</button>
+      <button id="videojuegos-btn" onclick="loadContent('musica-videojuegos', this)">Playlist música videojuegos</button>
+      <button id="cortometrajes-btn" onclick="loadContent('musica-cortometrajes', this)">Playlist música cortometrajes</button>
     </div>
 
     <div id="reel" class="content"></div>
@@ -174,6 +184,10 @@
         if (id === 'reel') {
           content.innerHTML = '<video controls autoplay><source src="./video/pv_reel.mp4" type="video/mp4">Tu navegador no soporta el video.</video>';
           activeVideo = content.querySelector('video');
+        } else if (id === 'musica-videojuegos') {
+          content.innerHTML = '<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1877353838&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>';
+        } else if (id === 'musica-cortometrajes') {
+          content.innerHTML = '<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1876469372&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>';
         }
       }
       content.style.display = "block";
@@ -188,9 +202,9 @@
                 + "<b>✓</b> Video game integration with middleware.<br />"
                 + "<b>✓</b> Collaborative tools and repositories.<br />"
                 + "If you have a video game, short film, podcast, or any multimedia project in mind, count me in :-)",
-        reelBtn: "Video Games</br>Music Reel",
-        videojuegosBtn: "Playlist: Video Game Music",
-        cortometrajesBtn: "Playlist: Short Film Music",
+        reelBtn: "Video games</br>music reel",
+        videojuegosBtn: "Video games</br>music playlist",
+        cortometrajesBtn: "Short films</br>music playlist",
         contactText: "Contact me:"
       },
       es: {
@@ -200,9 +214,9 @@
                 + "<b>✓</b> Integración en videojuegos con middleware.<br />"
                 + "<b>✓</b> Herramientas y repositorios colaborativos.<br />"
                 + "Si tienes en mente un videojuego, cortometraje, podcast o cualquier proyecto multimedia, cuenta conmigo :-)",
-        reelBtn: "Music Reel</br>Videojuegos",
-        videojuegosBtn: "Playlist música para videojuegos",
-        cortometrajesBtn: "Playlist música para cortometrajes",
+        reelBtn: "Reel música</br>videojuegos",
+        videojuegosBtn: "Playlist música videojuegos",
+        cortometrajesBtn: "Playlist música cortometrajes",
         contactText: "Contáctame:"
       }
     };
